@@ -15,7 +15,7 @@ class LoadInitialResourceUseCase
   @protected
   @override
   LoadInitialResourceOutput buildUseCase(LoadInitialResourceInput input) {
-    final initialRoutes = [_repository.isLoggedIn ? InitialAppRoute.main : InitialAppRoute.login];
+    final initialRoutes = [InitialAppRoute.mealMenu];
 
     return LoadInitialResourceOutput(initialRoutes: initialRoutes);
   }
@@ -31,6 +31,6 @@ class LoadInitialResourceOutput extends BaseOutput with _$LoadInitialResourceOut
   const LoadInitialResourceOutput._();
 
   const factory LoadInitialResourceOutput({
-    @Default([InitialAppRoute.main]) List<InitialAppRoute> initialRoutes,
+    @Default([InitialAppRoute.mealMenu]) List<InitialAppRoute> initialRoutes,
   }) = _LoadInitialResourceOutput;
 }

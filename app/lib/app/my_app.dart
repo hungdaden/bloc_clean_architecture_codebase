@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:domain/domain.dart';
 import 'package:flutter/material.dart';
@@ -61,6 +63,14 @@ class _MyAppState extends BasePageState<MyApp, AppBloc> {
             themeMode: state.isDarkTheme ? ThemeMode.dark : ThemeMode.light,
             theme: lightTheme,
             darkTheme: darkTheme,
+            scrollBehavior: const MaterialScrollBehavior().copyWith(
+              dragDevices: {
+                PointerDeviceKind.mouse,
+                PointerDeviceKind.touch,
+                PointerDeviceKind.stylus,
+                PointerDeviceKind.unknown,
+              },
+            ),
             debugShowCheckedModeBanner: false,
             localeResolutionCallback: (Locale? locale, Iterable<Locale> supportedLocales) =>
                 supportedLocales.contains(locale)
@@ -83,10 +93,8 @@ class _MyAppState extends BasePageState<MyApp, AppBloc> {
   List<PageRouteInfo> _mapRouteToPageRouteInfo() {
     return widget.initialResource.initialRoutes.map<PageRouteInfo>((e) {
       switch (e) {
-        case InitialAppRoute.login:
-          return const LoginRoute();
-        case InitialAppRoute.main:
-          return const MainRoute();
+        case InitialAppRoute.mealMenu:
+          return const MealMenuRoute();
       }
     }).toList(growable: false);
   }

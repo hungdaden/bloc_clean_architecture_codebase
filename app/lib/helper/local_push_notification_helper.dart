@@ -51,10 +51,10 @@ class LocalPushNotificationHelper with LogMixin {
         ));
   }
 
-  Future<void> notify(AppNotification notification) async {
+  Future<void> notify({required String title, required String message, String? image}) async {
     File? imageFile;
-    if (notification.image.isNotEmpty) {
-      imageFile = await FileUtils.getImageFileFromUrl(notification.image);
+    if (image != null && image.isNotEmpty) {
+      imageFile = await FileUtils.getImageFileFromUrl(image);
       logD('Downloaded Image File: $imageFile');
     }
 
@@ -85,8 +85,8 @@ class LocalPushNotificationHelper with LogMixin {
     await FlutterLocalNotificationsPlugin()
         .show(
           _randomNotificationId,
-          notification.title,
-          notification.message,
+          title,
+          message,
           platformChannelSpecifics,
           // TODO(minh): handle later payload: jsonEncode(data),
         )

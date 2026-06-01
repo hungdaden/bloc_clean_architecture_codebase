@@ -6,9 +6,15 @@ environment:
   sdk: ">=3.0.5 <4.0.0"
 
 dependency_overrides:
-  analyzer: 6.2.0
-  js: ^0.7.0
   dart_style: 2.3.6
+  
+  frontend_server_client: 4.0.0
+  analyzer: 6.4.1
+  build_resolvers: 2.4.2
+
+
+  js: ^0.7.0
+
 dependencies:
   async: 2.11.0
   auto_route: 7.8.4
@@ -39,7 +45,7 @@ dependencies:
 dev_dependencies:
   auto_route_generator: 7.3.2
   bloc_test: 9.1.6
-  build_runner: 2.4.8
+  build_runner: 2.4.13
   custom_lint: 0.6.0
   flutter_gen_runner: 5.4.0
   flutter_launcher_icons: 0.13.1

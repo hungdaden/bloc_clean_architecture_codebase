@@ -17,7 +17,6 @@ class GetInitialAppDataUseCase
   GetInitialAppDataOutput buildUseCase(GetInitialAppDataInput input) {
     return GetInitialAppDataOutput(
       isDarkMode: _repository.isDarkMode,
-      isLoggedIn: _repository.isLoggedIn,
       languageCode: _repository.languageCode,
     );
   }
@@ -33,7 +32,6 @@ class GetInitialAppDataOutput extends BaseOutput with _$GetInitialAppDataOutput 
   const GetInitialAppDataOutput._();
 
   const factory GetInitialAppDataOutput({
-    @Default(false) bool isLoggedIn,
     @Default(false) bool isDarkMode,
     @Default(LanguageCode.ja) LanguageCode languageCode,
   }) = _GetInitialAppDataOutput;

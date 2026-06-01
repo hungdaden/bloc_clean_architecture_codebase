@@ -2,9 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:resources/resources.dart';
 import 'package:shared/shared.dart';
 
+enum MealType {
+  breakfast(0),
+  lunch(1),
+  snack(2),
+  dinner(3),
+  unknown(-1);
+
+  const MealType(this.serverValue);
+  final int serverValue;
+
+  static const defaultValue = unknown;
+}
+
+
 enum InitialAppRoute {
-  login,
-  main,
+  mealMenu,
 }
 
 enum Gender {
@@ -45,28 +58,4 @@ enum NotificationType {
   liked;
 
   static const defaultValue = unknown;
-}
-
-enum BottomTab {
-  home(icon: Icon(Icons.home), activeIcon: Icon(Icons.home)),
-  search(icon: Icon(Icons.search), activeIcon: Icon(Icons.search)),
-  myPage(icon: Icon(Icons.people), activeIcon: Icon(Icons.people));
-
-  const BottomTab({
-    required this.icon,
-    required this.activeIcon,
-  });
-  final Icon icon;
-  final Icon activeIcon;
-
-  String get title {
-    switch (this) {
-      case BottomTab.home:
-        return S.current.home;
-      case BottomTab.search:
-        return S.current.search;
-      case BottomTab.myPage:
-        return S.current.myPage;
-    }
-  }
 }

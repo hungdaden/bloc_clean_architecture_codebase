@@ -11,11 +11,6 @@ class AppBloc extends BaseBloc<AppEvent, AppState> {
     this._saveIsDarkModeUseCase,
     this._saveLanguageCodeUseCase,
   ) : super(const AppState()) {
-    on<IsLoggedInStatusChanged>(
-      _onIsLoggedInStatusChanged,
-      transformer: log(),
-    );
-
     on<AppThemeChanged>(
       _onAppThemeChanged,
       transformer: throttleTime(),
@@ -35,10 +30,6 @@ class AppBloc extends BaseBloc<AppEvent, AppState> {
   final GetInitialAppDataUseCase _getInitialAppDataUseCase;
   final SaveIsDarkModeUseCase _saveIsDarkModeUseCase;
   final SaveLanguageCodeUseCase _saveLanguageCodeUseCase;
-
-  void _onIsLoggedInStatusChanged(IsLoggedInStatusChanged event, Emitter<AppState> emit) {
-    emit(state.copyWith(isLoggedIn: event.isLoggedIn));
-  }
 
   Future<void> _onAppThemeChanged(AppThemeChanged event, Emitter<AppState> emit) async {
     await runBlocCatching(
@@ -67,7 +58,6 @@ class AppBloc extends BaseBloc<AppEvent, AppState> {
         _updateThemeSetting(output.isDarkMode);
         emit(state.copyWith(
           isDarkTheme: output.isDarkMode,
-          isLoggedIn: output.isLoggedIn,
           languageCode: output.languageCode,
         ));
       },

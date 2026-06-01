@@ -38,23 +38,6 @@ class AppPopupInfoMapper extends BasePopupInfoMapper {
           message: message,
         );
       },
-      requiredLoginDialog: () => CommonDialog.adaptive(
-        title: S.current.login,
-        message: S.current.login,
-        actions: [
-          PopupButton(
-            text: S.current.cancel,
-            onPressed: Func0(() => navigator.pop()),
-          ),
-          PopupButton(
-            text: S.current.login,
-            onPressed: Func0(() async {
-              await navigator.pop();
-              await navigator.push(const AppRouteInfo.login());
-            }),
-          ),
-        ],
-      ),
     );
   }
 }
