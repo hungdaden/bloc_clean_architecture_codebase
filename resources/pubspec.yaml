@@ -8,7 +8,7 @@ environment:
   flutter: ">=1.17.0"
 
 dependency_overrides:
-  dart_style: 2.3.8
+  dart_style: 2.3.6
   
   frontend_server_client: 4.0.0
   analyzer: 6.4.1
@@ -25,7 +25,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   intl: 0.20.2
-  intl_utils: 2.8.10
+  intl_utils: 2.8.8
 
 
 flutter_intl:

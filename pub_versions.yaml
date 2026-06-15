@@ -26,7 +26,7 @@ custom_lint_builder: 0.5.0
 source_gen: 1.4.0
 custom_pop_up_menu: 1.2.2
 dart_code_metrics: 5.7.5
-dart_style: 2.3.8
+dart_style: 2.3.6
 dartx: 1.1.0
 decimal: 2.1.0
 device_info_plus: 9.0.2
@@ -76,7 +76,7 @@ infinite_scroll_pagination: 4.0.0
 injectable: 2.1.2
 injectable_generator: 2.1.6
 intl: 0.20.2
-intl_utils: 2.8.10
+intl_utils: 2.8.8
 json_annotation: 4.8.1
 json_serializable: 6.7.0
 local_auth: 1.1.9
