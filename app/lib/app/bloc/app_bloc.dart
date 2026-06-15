@@ -25,6 +25,11 @@ class AppBloc extends BaseBloc<AppEvent, AppState> {
       _onAppInitiated,
       transformer: log(),
     );
+
+    on<AppAccentColorChanged>(
+      _onAppAccentColorChanged,
+      transformer: log(),
+    );
   }
 
   final GetInitialAppDataUseCase _getInitialAppDataUseCase;
@@ -66,5 +71,9 @@ class AppBloc extends BaseBloc<AppEvent, AppState> {
 
   void _updateThemeSetting(bool isDarkTheme) {
     AppThemeSetting.currentAppThemeType = isDarkTheme ? AppThemeType.dark : AppThemeType.light;
+  }
+
+  void _onAppAccentColorChanged(AppAccentColorChanged event, Emitter<AppState> emit) {
+    emit(state.copyWith(accentColor: event.accentColor));
   }
 }

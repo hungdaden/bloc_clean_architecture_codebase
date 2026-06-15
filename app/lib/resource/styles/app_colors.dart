@@ -39,9 +39,15 @@ class AppColors {
   );
 
   static AppColors of(BuildContext context) {
-    final appColor = Theme.of(context).appColor;
+    final colors = Theme.of(context).colors;
 
-    current = appColor;
+    current = AppColors(
+      primaryColor: colors.primaryColor,
+      secondaryColor: colors.secondaryColor,
+      primaryTextColor: colors.primaryTextColor,
+      secondaryTextColor: colors.secondaryTextColor,
+      primaryGradient: colors.primaryGradient,
+    );
 
     return current;
   }

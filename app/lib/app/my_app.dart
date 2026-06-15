@@ -36,11 +36,13 @@ class _MyAppState extends BasePageState<MyApp, AppBloc> {
   @override
   Widget buildPage(BuildContext context) {
     return ScreenUtilInit(
-      designSize: const Size(DeviceConstants.designDeviceWidth, DeviceConstants.designDeviceHeight),
+      designSize: const Size(DeviceConstants.designDeviceWidth,
+          DeviceConstants.designDeviceHeight),
       builder: (context, _) => BlocBuilder<AppBloc, AppState>(
         buildWhen: (previous, current) =>
             previous.isDarkTheme != current.isDarkTheme ||
-            previous.languageCode != current.languageCode,
+            previous.languageCode != current.languageCode ||
+            previous.accentColor != current.accentColor,
         builder: (context, state) {
           return MaterialApp.router(
             builder: (context, child) {
@@ -61,21 +63,22 @@ class _MyAppState extends BasePageState<MyApp, AppBloc> {
             title: UiConstants.materialAppTitle,
             color: UiConstants.taskMenuMaterialAppColor,
             themeMode: state.isDarkTheme ? ThemeMode.dark : ThemeMode.light,
-            theme: lightTheme,
-            darkTheme: darkTheme,
-            scrollBehavior: const MaterialScrollBehavior().copyWith(
-              dragDevices: {
-                PointerDeviceKind.mouse,
-                PointerDeviceKind.touch,
-                PointerDeviceKind.stylus,
-                PointerDeviceKind.unknown,
-              },
-            ),
+            theme: MainTheme.light(state.accentColor),
+            darkTheme: MainTheme.dark(state.accentColor),
+            // scrollBehavior: const MaterialScrollBehavior().copyWith(
+            //   dragDevices: {
+            //     // PointerDeviceKind.mouse,
+            //     PointerDeviceKind.touch,
+            //     PointerDeviceKind.stylus,
+            //     PointerDeviceKind.unknown,
+            //   },
+            // ),
             debugShowCheckedModeBanner: false,
-            localeResolutionCallback: (Locale? locale, Iterable<Locale> supportedLocales) =>
-                supportedLocales.contains(locale)
-                    ? locale
-                    : const Locale(LocaleConstants.defaultLocale),
+            localeResolutionCallback:
+                (Locale? locale, Iterable<Locale> supportedLocales) =>
+                    supportedLocales.contains(locale)
+                        ? locale
+                        : const Locale(LocaleConstants.defaultLocale),
             locale: Locale(state.languageCode.localeCode),
             supportedLocales: S.delegate.supportedLocales,
             localizationsDelegates: const [

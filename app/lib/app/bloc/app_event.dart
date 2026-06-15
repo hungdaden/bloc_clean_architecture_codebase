@@ -1,4 +1,5 @@
 import 'package:domain/domain.dart';
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../base/bloc/base_bloc_event.dart';
@@ -7,6 +8,13 @@ part 'app_event.freezed.dart';
 
 abstract class AppEvent extends BaseBlocEvent {
   const AppEvent();
+}
+
+@freezed
+class AppAccentColorChanged extends AppEvent with _$AppAccentColorChanged {
+  const factory AppAccentColorChanged({
+    required Color accentColor,
+  }) = _AppAccentColorChanged;
 }
 
 @freezed

@@ -9,108 +9,50 @@ class MockAuthAppServerApiClient extends Mock implements AuthAppServerApiClient 
 
 class MockRandomUserApiClient extends Mock implements RandomUserApiClient {}
 
+class MockStudentApiClient extends Mock implements StudentApiClient {}
+
 void main() {
   late AppApiService appApiService;
   final _noneAuthAppServerApiClient = MockNoneAuthAppServerApiClient();
   final _authAppServerApiClient = MockAuthAppServerApiClient();
   final _randomUserApiClient = MockRandomUserApiClient();
+  final _studentApiClient = MockStudentApiClient();
 
   setUp(() {
     appApiService = AppApiService(
       _noneAuthAppServerApiClient,
       _authAppServerApiClient,
       _randomUserApiClient,
+      _studentApiClient,
     );
   });
 
-  group('test `login` function', () {
+  group('test `getStudents` function', () {
     test(
-      'should return correct DataResponse<ApiAuthResponseData> when using correct response',
+      'should return student list when API responds successfully',
       () async {
+        final mockList = [
+          const StudentDataModel(
+            id: '1',
+            fullName: 'Willard Kris',
+            avatarUrl: 'https://avatars.githubusercontent.com/u/23852744',
+          ),
+        ];
+
         when(
-          () => _noneAuthAppServerApiClient
-              .request<ApiAuthResponseData, DataResponse<ApiAuthResponseData>>(
-            method: RestMethod.post,
-            path: '/v1/auth/login',
-            body: {
-              'email': 'inputEmail',
-              'password': 'inputPassword',
-            },
-            decoder: any(named: 'decoder', that: isA<Decoder<ApiAuthResponseData>>()),
-          ),
-        ).thenAnswer(
-          (_) async => const DataResponse(
-            data: ApiAuthResponseData(
-              accessToken: 'accessToken',
-              id: 1,
-              name: 'name',
-              email: 'email',
-              username: 'username',
-            ),
-          ),
-        );
-
-        final result = await appApiService.login(email: 'inputEmail', password: 'inputPassword');
-
-        // ignore: variable_type_mismatch
-        const expected = DataResponse(
-          data: ApiAuthResponseData(
-            accessToken: 'accessToken',
-            id: 1,
-            name: 'name',
-            email: 'email',
-            username: 'username',
-          ),
-        );
-
-        expect(result, expected);
-      },
-    );
-
-    // should return default DataResponse<ApiAuthResponseData> data when response is null
-    test(
-      'should return null when response is null',
-      () async {
-        when(
-          () => _noneAuthAppServerApiClient
-              .request<ApiAuthResponseData, DataResponse<ApiAuthResponseData>>(
-            method: RestMethod.post,
-            path: '/v1/auth/login',
-            body: {
-              'email': 'inputEmail',
-              'password': 'inputPassword',
-            },
-            decoder: any(named: 'decoder', that: isA<Decoder<ApiAuthResponseData>>()),
-          ),
-        ).thenAnswer(
-          (_) async => null,
-        );
-
-        final result = await appApiService.login(email: 'inputEmail', password: 'inputPassword');
-
-        expect(result, null);
-      },
-    );
-  });
-
-  group('test `getMe` function', () {
-    test(
-      'should return correct ApiUserData when using correct response',
-      () async {
-        when(
-          () => _authAppServerApiClient.request<ApiUserData, ApiUserData>(
+          () => _studentApiClient.request<StudentDataModel, List<StudentDataModel>>(
             method: RestMethod.get,
-            path: '/v1/me',
-            successResponseMapperType: SuccessResponseMapperType.jsonObject,
-            decoder: any(named: 'decoder', that: isA<Decoder<ApiUserData>>()),
+            path: '/student',
+            decoder: any(named: 'decoder', that: isA<Decoder<StudentDataModel>>()),
+            successResponseMapperType: SuccessResponseMapperType.jsonArray,
           ),
         ).thenAnswer(
-          (_) async => const ApiUserData(),
+          (_) async => mockList,
         );
 
-        final result = await appApiService.getMe();
+        final result = await appApiService.getStudents();
 
-        expect(result, const ApiUserData());
+        expect(result, mockList);
       },
     );
   });

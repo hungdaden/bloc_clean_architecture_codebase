@@ -10,6 +10,13 @@ class AppRouteInfoMapper extends BaseRouteInfoMapper {
   PageRouteInfo map(AppRouteInfo appRouteInfo) {
     return appRouteInfo.when(
       mealMenu: () => const MealMenuRoute(),
+      adminMealManagement: () => const AdminMealRoute(),
+      commentList: () => const CommentListRoute(),
+      commentDetail: (comment) => CommentDetailRoute(comment: comment),
+      studentList: () => const StudentListRoute(),
+      leaveList: () => const LeaveListRoute(),
+      leaveRegistration: () => const LeaveRegistrationRoute(),
     );
   }
 }
+

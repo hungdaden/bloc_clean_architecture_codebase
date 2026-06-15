@@ -12,6 +12,7 @@ export 'src/repository/source/api/client/base/graphql_api_client.dart';
 export 'src/repository/source/api/client/base/rest_api_client.dart';
 export 'src/repository/source/api/client/none_auth_app_server_api_client.dart';
 export 'src/repository/source/api/client/random_user_api_client.dart';
+export 'src/repository/source/api/client/student_api_client.dart';
 export 'src/repository/source/api/client/raw_api_client.dart';
 export 'src/repository/source/api/exception_mapper/dio_exception_mapper.dart';
 export 'src/repository/source/api/exception_mapper/graphql_exception_mapper.dart';
@@ -48,3 +49,11 @@ export 'src/repository/source/shared/mapper/gender_data_mapper.dart';
 export 'src/repository/source/shared/mapper/language_code_data_mapper.dart';
 export 'src/model/meal_data_model.dart';
 export 'src/mapper/meal_data_mapper.dart';
+export 'src/model/comment_data_model.dart';
+export 'src/mapper/comment_data_mapper.dart';
+export 'src/model/student_data_model.dart';
+export 'src/mapper/student_data_mapper.dart';
+export 'src/model/leave_request_data_model.dart';
+export 'src/mapper/leave_request_data_mapper.dart';
+
+

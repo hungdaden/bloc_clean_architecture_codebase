@@ -1,0 +1,72 @@
+name: Build Sideloadable IPA
+
+on:
+  workflow_dispatch:
+    inputs:
+      flavor:
+        description: 'Select the Environment/Flavor to build'
+        required: true
+        default: 'develop'
+        type: choice
+        options:
+          - develop
+          - qa
+          - staging
+          - production
+
+env:
+  JAVA_VERSION: "12.x"
+  FLUTTER_VERSION: "3.13.1"
+  MELOS_VERSION: "3.1.0"
+
+jobs:
+  build-ipa:
+    name: Build Sideloadable IPA (${{ github.event.inputs.flavor }})
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v3
+
+      - name: Setup Java Environment
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: ${{ env.JAVA_VERSION }}
+
+      - name: Setup Flutter SDK
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          cache: true
+
+      - name: Add Pub Cache Bin to PATH
+        run: echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
+
+      - name: Add Pub Cache to Env
+        run: echo "PUB_CACHE=$HOME/.pub-cache" >> $GITHUB_ENV
+
+      - name: Install Melos CLI
+        run: dart pub global activate melos ${{ env.MELOS_VERSION }}
+
+      - name: Sync Dependencies & Generate Code
+        run: make sync
+
+      - name: Build iOS App (No Code Signing)
+        run: |
+          chmod +x tools/build_and_run_app.sh
+          ./tools/build_and_run_app.sh ${{ github.event.inputs.flavor }} build ios --no-codesign
+
+      - name: Package IPA (Payload for Sideloadly)
+        run: |
+          mkdir -p Payload
+          cp -r app/build/ios/iphoneos/Runner.app Payload/
+          zip -r ${{ github.event.inputs.flavor }}-sideload.ipa Payload
+
+      - name: Upload IPA Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ github.event.inputs.flavor }}-sideload-ipa
+          path: ${{ github.event.inputs.flavor }}-sideload.ipa
+          retention-days: 7
+          if-no-files-found: error

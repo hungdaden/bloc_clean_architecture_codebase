@@ -30,15 +30,29 @@ class DioExceptionMapper extends ExceptionMapper<RemoteException> {
         case DioExceptionType.badResponse:
           final httpErrorCode = exception.response?.statusCode ?? -1;
 
-          /// server-defined error
           if (exception.response?.data != null) {
-            final serverError = _errorResponseMapper.map(exception.response!.data!);
+            try {
+              final serverError = _errorResponseMapper.map(exception.response!.data!);
 
-            return RemoteException(
-              kind: RemoteExceptionKind.serverDefined,
-              httpErrorCode: httpErrorCode,
-              serverError: serverError,
-            );
+              return RemoteException(
+                kind: RemoteExceptionKind.serverDefined,
+                httpErrorCode: httpErrorCode,
+                serverError: serverError,
+              );
+            } on RemoteException catch (e) {
+              return RemoteException(
+                kind: e.kind,
+                httpErrorCode: httpErrorCode,
+                serverError: e.serverError,
+                rootException: e.rootException,
+              );
+            } catch (e) {
+              return RemoteException(
+                kind: RemoteExceptionKind.serverUndefined,
+                httpErrorCode: httpErrorCode,
+                rootException: exception,
+              );
+            }
           }
 
           return RemoteException(

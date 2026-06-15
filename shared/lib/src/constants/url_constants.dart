@@ -12,6 +12,7 @@ class UrlConstants {
   static const randomUserBaseUrl = 'https://randomuser.me/api/';
 
   static const mockApiBaseUrl = 'https://api.jsonbin.io/';
+  static const studentApiBaseUrl = 'https://6a2a18cbf59cb8f65f1e0ef6.mockapi.io/';
 
   /// Path
   static const remoteConfigPath = '/config/RemoteConfig.json';
