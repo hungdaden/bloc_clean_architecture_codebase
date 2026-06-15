@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import '../../../app.dart';
 
@@ -17,40 +16,31 @@ class CommentDetailBottomBar extends StatelessWidget {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
     final bottomColor = theme.scaffoldBackgroundColor;
+    final bottomBarBgColor = Color.alphaBlend(
+      theme.primaryColor.withValues(alpha: isDark ? 0.25 : 0.2),
+      bottomColor,
+    ).withValues(alpha: isDark ? 0.95 : 0.9);
 
     return Stack(
       alignment: Alignment.bottomCenter,
       children: [
         Positioned.fill(
-          child: ShaderMask(
-            shaderCallback: (rect) {
-              return const LinearGradient(
+          child: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
                 begin: Alignment.bottomCenter,
                 end: Alignment.topCenter,
                 colors: [
-                  Colors.black,
-                  Colors.transparent,
+                  bottomBarBgColor,
+                  bottomBarBgColor,
+                  bottomBarBgColor.withValues(alpha: 0.0),
                 ],
-                stops: [0.65, 1.0],
-              ).createShader(rect);
-            },
-            blendMode: BlendMode.dstIn,
-            child: ClipRect(
-              child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Color.alphaBlend(
-                      theme.primaryColor.withValues(alpha: isDark ? 0.25 : 0.2),
-                      bottomColor,
-                    ).withValues(alpha: isDark ? 0.95 : 0.9),
-                    border: Border(
-                      top: BorderSide(
-                        color: theme.dividerColor,
-                        width: 1,
-                      ),
-                    ),
-                  ),
+                stops: const [0.0, 0.65, 1.0],
+              ),
+              border: Border(
+                top: BorderSide(
+                  color: theme.dividerColor,
+                  width: 1,
                 ),
               ),
             ),
@@ -92,30 +82,24 @@ class CommentDetailBottomBar extends StatelessWidget {
                           behavior: SnackBarBehavior.floating,
                           backgroundColor: Colors.transparent,
                           elevation: 0,
-                          content: ClipRRect(
-                            borderRadius: BorderRadius.circular(12),
-                            child: BackdropFilter(
-                              filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                              child: Container(
-                                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                                decoration: BoxDecoration(
-                                  color: Color.alphaBlend(
-                                    theme.primaryColor.withValues(alpha: isDark ? 0.25 : 0.2),
-                                    theme.cardColor,
-                                  ).withValues(alpha: 0.8),
-                                  borderRadius: BorderRadius.circular(12),
-                                  border: Border.all(
-                                    color: theme.dividerColor,
-                                    width: 1,
-                                  ),
-                                ),
-                                child: Text(
-                                  'Đang kết nối chat với GVBM $teacherName...',
-                                  style: TextStyle(
-                                    color: theme.colors.primaryTextColor,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
+                          content: Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                            decoration: BoxDecoration(
+                              color: Color.alphaBlend(
+                                theme.primaryColor.withValues(alpha: isDark ? 0.25 : 0.2),
+                                theme.cardColor,
+                              ).withValues(alpha: 0.9),
+                              borderRadius: BorderRadius.circular(12),
+                              border: Border.all(
+                                color: theme.dividerColor,
+                                width: 1,
+                              ),
+                            ),
+                            child: Text(
+                              'Đang kết nối chat với GVBM $teacherName...',
+                              style: TextStyle(
+                                color: theme.colors.primaryTextColor,
+                                fontWeight: FontWeight.w600,
                               ),
                             ),
                           ),

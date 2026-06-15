@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../app.dart';
@@ -35,6 +34,10 @@ class _FadedBackgroundPageLayoutState extends State<FadedBackgroundPageLayout> {
     final isDark = theme.brightness == Brightness.dark;
     final topColor = theme.primaryColor.withValues(alpha: isDark ? 0.15 : 0.25);
     final bottomColor = theme.scaffoldBackgroundColor;
+    final headerBgColor = Color.alphaBlend(
+      theme.primaryColor.withValues(alpha: isDark ? 0.25 : 0.2),
+      bottomColor,
+    ).withValues(alpha: isDark ? 0.95 : 0.9);
     final headerHeight =
         widget.subtitle != null ? 152.0.responsive() : 104.0.responsive();
 
@@ -112,40 +115,28 @@ class _FadedBackgroundPageLayoutState extends State<FadedBackgroundPageLayout> {
                         textColor: Colors.white,
                       ),
                     )
-                  : ShaderMask(
-                      shaderCallback: (rect) {
-                        return const LinearGradient(
+                  : Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
                           colors: [
-                            Colors.black,
-                            Colors.transparent,
+                            headerBgColor,
+                            headerBgColor,
+                            headerBgColor.withValues(alpha: 0.0),
                           ],
-                          stops: [0.65, 1.0],
-                        ).createShader(rect);
-                      },
-                      blendMode: BlendMode.dstIn,
-                      child: ClipRect(
-                        child: BackdropFilter(
-                          filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
-                          child: Container(
-                            color: Color.alphaBlend(
-                              theme.primaryColor
-                                  .withValues(alpha: isDark ? 0.25 : 0.2),
-                              bottomColor,
-                            ).withValues(alpha: isDark ? 0.95 : 0.9),
-                            padding: EdgeInsets.only(
-                                top: 12.0.responsive(),
-                                bottom: 28.0.responsive()),
-                            alignment: Alignment.topCenter,
-                            child: ScreenHeader(
-                              title: widget.title,
-                              subtitle: widget.subtitle,
-                              onBackPressed: widget.onBackPressed,
-                              onSettingsPressed: widget.onSettingsPressed,
-                            ),
-                          ),
+                          stops: const [0.0, 0.65, 1.0],
                         ),
+                      ),
+                      padding: EdgeInsets.only(
+                          top: 12.0.responsive(),
+                          bottom: 28.0.responsive()),
+                      alignment: Alignment.topCenter,
+                      child: ScreenHeader(
+                        title: widget.title,
+                        subtitle: widget.subtitle,
+                        onBackPressed: widget.onBackPressed,
+                        onSettingsPressed: widget.onSettingsPressed,
                       ),
                     ),
             ),
