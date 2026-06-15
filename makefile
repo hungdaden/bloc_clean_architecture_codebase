@@ -62,6 +62,9 @@ analyze_shared:
 lint:
 	@melos run lint
 
+custom_lint:
+	@melos exec -- "flutter pub run custom_lint"
+
 metrics:
 	@melos run metrics
 
