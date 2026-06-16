@@ -43,104 +43,101 @@ class _FadedBackgroundPageLayoutState extends State<FadedBackgroundPageLayout> {
     return CommonScaffold(
       backgroundColor: bottomColor,
       floatingActionButton: widget.floatingActionButton,
-      body: SafeArea(
-        child: Stack(
-          children: [
-            // Base background
-            _FadingBackground(
-              imageAssetPath: 'assets/images/review_bg.webp',
-              topColor: topColor,
-              bottomColor: bottomColor,
-              height: MediaQuery.of(context).size.height * 0.33,
-            ),
+      body: Stack(
+        children: [
+          // Base background
+          _FadingBackground(
+            imageAssetPath: 'assets/images/review_bg.webp',
+            topColor: topColor,
+            bottomColor: bottomColor,
+            height: MediaQuery.of(context).size.height * 0.33,
+          ),
 
-            // Animated Solid Theme background (Liquid paint pouring/sliding down from top)
-            AnimatedPositioned(
-              duration: widget.useSolidThemeBackground
-                  ? const Duration(milliseconds: 800)
-                  : Duration.zero,
-              curve: Curves.fastOutSlowIn,
-              top: widget.useSolidThemeBackground
-                  ? 0.0
-                  : -MediaQuery.of(context).size.height,
-              left: 0,
-              right: 0,
-              height: MediaQuery.of(context).size.height,
-              child: Container(
-                color: Color.alphaBlend(
-                    Colors.black.withValues(alpha: 0.45), theme.primaryColor),
-                child: Stack(
-                  children: [
-                    Positioned(
-                      top: 0,
-                      left: 0,
-                      right: 0,
-                      height: MediaQuery.of(context).size.height * 0.33,
-                      child: Opacity(
-                        opacity: 0.08,
-                        child: Image.asset(
-                          'assets/images/review_bg.webp',
-                          fit: BoxFit.cover,
-                        ),
+          // Animated Solid Theme background (Liquid paint pouring/sliding down from top)
+          AnimatedPositioned(
+            duration: widget.useSolidThemeBackground
+                ? const Duration(milliseconds: 800)
+                : Duration.zero,
+            curve: Curves.fastOutSlowIn,
+            top: widget.useSolidThemeBackground
+                ? 0.0
+                : -MediaQuery.of(context).size.height,
+            left: 0,
+            right: 0,
+            height: MediaQuery.of(context).size.height,
+            child: Container(
+              color: Color.alphaBlend(
+                  Colors.black.withValues(alpha: 0.45), theme.primaryColor),
+              child: Stack(
+                children: [
+                  Positioned(
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    height: MediaQuery.of(context).size.height * 0.33,
+                    child: Opacity(
+                      opacity: 0.08,
+                      child: Image.asset(
+                        'assets/images/review_bg.webp',
+                        fit: BoxFit.cover,
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
+          ),
 
-            // Content (static viewport)
-            Positioned.fill(
-              child: widget.child,
-            ),
+          // Content (static viewport)
+          Positioned.fill(
+            child: widget.child,
+          ),
 
-            // App Bar Header (Standard dynamic display with synchronized layout)
-            Positioned(
-              top: 0,
-              left: 0,
-              right: 0,
-              height: headerHeight,
-              child: widget.useSolidThemeBackground
-                  ? Container(
-                      color: Colors.transparent,
-                      padding: EdgeInsets.only(
-                          top: 12.0.responsive(), bottom: 28.0.responsive()),
-                      alignment: Alignment.topCenter,
-                      child: ScreenHeader(
-                        title: widget.title,
-                        subtitle: widget.subtitle,
-                        onBackPressed: widget.onBackPressed,
-                        onSettingsPressed: widget.onSettingsPressed,
-                        textColor: Colors.white,
-                      ),
-                    )
-                  : Container(
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            headerBgColor,
-                            headerBgColor,
-                            headerBgColor.withValues(alpha: 0.0),
-                          ],
-                          stops: const [0.0, 0.65, 1.0],
-                        ),
-                      ),
-                      padding: EdgeInsets.only(
-                          top: 12.0.responsive(),
-                          bottom: 28.0.responsive()),
-                      alignment: Alignment.topCenter,
-                      child: ScreenHeader(
-                        title: widget.title,
-                        subtitle: widget.subtitle,
-                        onBackPressed: widget.onBackPressed,
-                        onSettingsPressed: widget.onSettingsPressed,
+          // App Bar Header (Standard dynamic display with synchronized layout)
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            height: headerHeight,
+            child: widget.useSolidThemeBackground
+                ? Container(
+                    color: Colors.transparent,
+                    padding: EdgeInsets.only(
+                        top: 12.0.responsive(), bottom: 28.0.responsive()),
+                    alignment: Alignment.topCenter,
+                    child: ScreenHeader(
+                      title: widget.title,
+                      subtitle: widget.subtitle,
+                      onBackPressed: widget.onBackPressed,
+                      onSettingsPressed: widget.onSettingsPressed,
+                      textColor: Colors.white,
+                    ),
+                  )
+                : Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          headerBgColor,
+                          headerBgColor,
+                          headerBgColor.withValues(alpha: 0.0),
+                        ],
+                        stops: const [0.0, 0.65, 1.0],
                       ),
                     ),
-            ),
-          ],
-        ),
+                    padding: EdgeInsets.only(
+                        top: 12.0.responsive(), bottom: 28.0.responsive()),
+                    alignment: Alignment.topCenter,
+                    child: ScreenHeader(
+                      title: widget.title,
+                      subtitle: widget.subtitle,
+                      onBackPressed: widget.onBackPressed,
+                      onSettingsPressed: widget.onSettingsPressed,
+                    ),
+                  ),
+          ),
+        ],
       ),
     );
   }

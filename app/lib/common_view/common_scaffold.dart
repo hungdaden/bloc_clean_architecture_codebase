@@ -26,6 +26,7 @@ class CommonScaffold extends StatelessWidget {
     final scaffold = Scaffold(
       backgroundColor: backgroundColor,
       body: Shimmer(child: body),
+      extendBodyBehindAppBar: true,
       appBar: appBar,
       drawer: drawer,
       floatingActionButton: floatingActionButton,
