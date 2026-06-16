@@ -10,7 +10,7 @@ class CommonScaffold extends StatelessWidget {
     this.floatingActionButton,
     this.drawer,
     this.backgroundColor,
-    this.hideKeyboardWhenTouchOutside = false,
+    this.hideKeyboardWhenTouchOutside = true,
     super.key,
   });
 

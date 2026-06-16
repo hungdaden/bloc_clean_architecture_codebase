@@ -33,12 +33,14 @@ class ViewUtils {
     }
   }
 
-  static Future<void> setPreferredOrientations(List<DeviceOrientation> orientations) {
+  static Future<void> setPreferredOrientations(
+      List<DeviceOrientation> orientations) {
     return SystemChrome.setPreferredOrientations(orientations);
   }
 
   /// set status bar color & navigation bar color
-  static void setSystemUIOverlayStyle(SystemUiOverlayStyle systemUiOverlayStyle) {
+  static void setSystemUIOverlayStyle(
+      SystemUiOverlayStyle systemUiOverlayStyle) {
     SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
   }
 
@@ -48,7 +50,8 @@ class ViewUtils {
   }
 
   static double? getWidgetWidth(GlobalKey globalKey) {
-    return (globalKey.currentContext?.findRenderObject() as RenderBox?)?.let((it) => it.size.width);
+    return (globalKey.currentContext?.findRenderObject() as RenderBox?)
+        ?.let((it) => it.size.width);
   }
 
   static double? getWidgetHeight(GlobalKey globalKey) {
