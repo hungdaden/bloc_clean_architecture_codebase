@@ -148,7 +148,6 @@ class _LeaveRegistrationPageState
           useSolidThemeBackground: useSolidBg,
           child: Stack(
             children: [
-              // Indicators and PageView
               Positioned.fill(
                 child: Column(
                   children: [
@@ -158,7 +157,6 @@ class _LeaveRegistrationPageState
                         controller: _pageController,
                         physics: const NeverScrollableScrollPhysics(),
                         children: [
-                          // Step 1: Select Type
                           _buildStepWrapper(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -176,8 +174,6 @@ class _LeaveRegistrationPageState
                               ],
                             ),
                           ),
-
-                          // Step 2: Select Date (Calendar)
                           _buildStepWrapper(
                             physics: const NeverScrollableScrollPhysics(),
                             child: Column(
@@ -203,7 +199,6 @@ class _LeaveRegistrationPageState
                             ),
                           ),
 
-                          // Step 3: Input Reason
                           _buildStepWrapper(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -221,8 +216,6 @@ class _LeaveRegistrationPageState
                               ],
                             ),
                           ),
-
-                          // Step 4: Confirm details
                           _buildStepWrapper(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -249,7 +242,6 @@ class _LeaveRegistrationPageState
                 ),
               ),
 
-              // Bottom Actions Panel (transparent overlay with top fading)
               Positioned(
                 left: 0,
                 right: 0,
@@ -274,7 +266,6 @@ class _LeaveRegistrationPageState
                   ),
                   child: Row(
                     children: [
-                      // Circular Back Icon Button
                       GestureDetector(
                         onTap: () {
                           HapticFeedback.mediumImpact();
@@ -300,7 +291,6 @@ class _LeaveRegistrationPageState
                         ),
                       ),
                       SizedBox(width: 16.0.responsive()),
-                      // Next/Confirm Button (Pill-shaped)
                       Expanded(
                         child: AnimatedContainer(
                           duration: const Duration(milliseconds: 250),

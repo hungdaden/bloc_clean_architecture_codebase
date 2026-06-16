@@ -53,7 +53,6 @@ class _FadedBackgroundPageLayoutState extends State<FadedBackgroundPageLayout> {
             height: MediaQuery.of(context).size.height * 0.33,
           ),
 
-          // Animated Solid Theme background (Liquid paint pouring/sliding down from top)
           AnimatedPositioned(
             duration: widget.useSolidThemeBackground
                 ? const Duration(milliseconds: 800)
@@ -93,7 +92,6 @@ class _FadedBackgroundPageLayoutState extends State<FadedBackgroundPageLayout> {
             child: widget.child,
           ),
 
-          // App Bar Header (Standard dynamic display with synchronized layout)
           Positioned(
             top: 0,
             left: 0,
@@ -105,12 +103,14 @@ class _FadedBackgroundPageLayoutState extends State<FadedBackgroundPageLayout> {
                     padding: EdgeInsets.only(
                         top: 12.0.responsive(), bottom: 28.0.responsive()),
                     alignment: Alignment.topCenter,
-                    child: ScreenHeader(
-                      title: widget.title,
-                      subtitle: widget.subtitle,
-                      onBackPressed: widget.onBackPressed,
-                      onSettingsPressed: widget.onSettingsPressed,
-                      textColor: Colors.white,
+                    child: SafeArea(
+                      child: ScreenHeader(
+                        title: widget.title,
+                        subtitle: widget.subtitle,
+                        onBackPressed: widget.onBackPressed,
+                        onSettingsPressed: widget.onSettingsPressed,
+                        textColor: Colors.white,
+                      ),
                     ),
                   )
                 : Container(
@@ -129,11 +129,13 @@ class _FadedBackgroundPageLayoutState extends State<FadedBackgroundPageLayout> {
                     padding: EdgeInsets.only(
                         top: 12.0.responsive(), bottom: 28.0.responsive()),
                     alignment: Alignment.topCenter,
-                    child: ScreenHeader(
-                      title: widget.title,
-                      subtitle: widget.subtitle,
-                      onBackPressed: widget.onBackPressed,
-                      onSettingsPressed: widget.onSettingsPressed,
+                    child: SafeArea(
+                      child: ScreenHeader(
+                        title: widget.title,
+                        subtitle: widget.subtitle,
+                        onBackPressed: widget.onBackPressed,
+                        onSettingsPressed: widget.onSettingsPressed,
+                      ),
                     ),
                   ),
           ),
