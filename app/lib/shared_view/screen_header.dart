@@ -11,6 +11,7 @@ class ScreenHeader extends StatelessWidget {
     this.onSettingsPressed,
     this.textColor,
     this.rightIcon,
+    this.titleFontSize,
   });
 
   final String title;
@@ -19,6 +20,7 @@ class ScreenHeader extends StatelessWidget {
   final VoidCallback? onSettingsPressed;
   final Color? textColor;
   final IconData? rightIcon;
+  final double? titleFontSize;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +33,6 @@ class ScreenHeader extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          // Fixed-height title and button row to keep action buttons perfectly aligned
           SizedBox(
             height: 56.0.responsive(),
             child: Stack(
@@ -78,7 +79,7 @@ class ScreenHeader extends StatelessWidget {
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                        fontSize: 24.0.responsive(),
+                        fontSize: titleFontSize ?? 20.0.responsive(),
                         fontWeight: FontWeight.bold,
                         color: textColor ?? (isDark ? Colors.white : Colors.black87),
                       ),

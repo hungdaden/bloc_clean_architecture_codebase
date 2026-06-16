@@ -65,7 +65,6 @@ class _BreakfastTrackingPageState
           onConfirm: () {
             Navigator.of(dialogContext).pop();
             bloc.add(const TermsAgreedChanged(true));
-            _showToast(context, 'Bạn đã đồng ý với các điều khoản dịch vụ');
           },
           onCancel: () {
             Navigator.of(dialogContext).pop();
@@ -230,83 +229,91 @@ class _BreakfastTrackingPageState
             break;
         }
 
-        return FadedBackgroundPageLayout(
-          title: title,
-          rightIcon: state.currentStep == BreakfastScreenStep.list
-              ? Icons.refresh_rounded
-              : null,
-          onSettingsPressed: state.currentStep == BreakfastScreenStep.list
-              ? () {
-                  HapticFeedback.mediumImpact();
-                  bloc.add(const BreakfastTrackingInitiated());
-                  _showToast(context, 'Đã đặt lại trạng thái ban đầu');
-                }
-              : null,
-          onBackPressed: () {
-            HapticFeedback.mediumImpact();
-            if (state.currentStep != BreakfastScreenStep.list) {
-              bloc.add(const CancelButtonPressed());
-            } else {
-              navigator.pop();
-            }
+        return PopScope(
+          canPop: state.currentStep == BreakfastScreenStep.list,
+          onPopInvokedWithResult: (didPop, result) {
+            if (didPop) return;
+            bloc.add(const CancelButtonPressed());
           },
-          child: Stack(
-            children: [
-              Positioned.fill(
-                child: AnimatedSwitcher(
-                  duration: const Duration(milliseconds: 300),
-                  switchInCurve: Curves.easeInOut,
-                  switchOutCurve: Curves.easeInOut,
-                  transitionBuilder: (Widget child, Animation<double> animation) {
-                    return FadeTransition(
-                      opacity: animation,
-                      child: SlideTransition(
-                        position: Tween<Offset>(
-                          begin: const Offset(0.0, 0.03),
-                          end: Offset.zero,
-                        ).animate(CurvedAnimation(
-                          parent: animation,
-                          curve: Curves.easeOutCubic,
-                        )),
-                        child: child,
-                      ),
-                    );
-                  },
-                  child: bodyContent,
-                ),
-              ),
-              if (state.isSubmitting)
+          child: FadedBackgroundPageLayout(
+            title: title,
+            titleFontSize: 18.0.responsive(),
+            rightIcon: state.currentStep == BreakfastScreenStep.list
+                ? Icons.refresh_rounded
+                : null,
+            onSettingsPressed: state.currentStep == BreakfastScreenStep.list
+                ? () {
+                    HapticFeedback.mediumImpact();
+                    bloc.add(const BreakfastTrackingInitiated());
+                    _showToast(context, 'Đã đặt lại trạng thái ban đầu');
+                  }
+                : null,
+            onBackPressed: () {
+              HapticFeedback.mediumImpact();
+              if (state.currentStep != BreakfastScreenStep.list) {
+                bloc.add(const CancelButtonPressed());
+              } else {
+                navigator.pop();
+              }
+            },
+            child: Stack(
+              children: [
                 Positioned.fill(
-                  child: Container(
-                    color: Colors.black12,
-                    child: const Center(
-                      child: CircularProgressIndicator(),
-                    ),
+                  child: AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 300),
+                    switchInCurve: Curves.easeInOut,
+                    switchOutCurve: Curves.easeInOut,
+                    transitionBuilder: (Widget child, Animation<double> animation) {
+                      return FadeTransition(
+                        opacity: animation,
+                        child: SlideTransition(
+                          position: Tween<Offset>(
+                            begin: const Offset(0.0, 0.03),
+                            end: Offset.zero,
+                          ).animate(CurvedAnimation(
+                            parent: animation,
+                            curve: Curves.easeOutCubic,
+                          )),
+                          child: child,
+                        ),
+                      );
+                    },
+                    child: bodyContent,
                   ),
                 ),
-              // Custom Toast Overlay next to the circular back button
-              if (state.currentStep != BreakfastScreenStep.register)
-                Positioned(
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  child: IgnorePointer(
-                    ignoring: !_isToastVisible,
-                    child: _buildBottomPanel(
-                      bottomPadding: bottomPadding,
-                      bgThemeColor: Colors.transparent,
-                      child: Row(
-                        children: [
-                          SizedBox(width: 66.0.responsive()), // Align right of back button
-                          Expanded(
-                            child: _buildToastWidget(),
-                          ),
-                        ],
+                if (state.isSubmitting)
+                  Positioned.fill(
+                    child: Container(
+                      color: Colors.black12,
+                      child: const Center(
+                        child: CircularProgressIndicator(),
                       ),
                     ),
                   ),
-                ),
-            ],
+                // Custom Toast Overlay next to the circular back button
+                if (state.currentStep != BreakfastScreenStep.register)
+                  Positioned(
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    child: IgnorePointer(
+                      ignoring: !_isToastVisible,
+                      child: _buildBottomPanel(
+                        bottomPadding: bottomPadding,
+                        bgThemeColor: Colors.transparent,
+                        child: Row(
+                          children: [
+                            SizedBox(width: 66.0.responsive()), // Align right of back button
+                            Expanded(
+                              child: _buildToastWidget(),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+              ],
+            ),
           ),
         );
       },
@@ -581,6 +588,7 @@ class _BreakfastTrackingPageState
                         ? () {
                             HapticFeedback.mediumImpact();
                             bloc.add(const RegisterSubmitPressed());
+                            _showToast(context, 'Đăng ký dịch vụ ăn sáng thành công');
                           }
                         : null,
                     child: AnimatedContainer(
@@ -732,7 +740,6 @@ class _BreakfastTrackingPageState
                 ),
                 SizedBox(height: 16.0.responsive()),
 
-                // Horizontal PageView with Peek Effect
                 SizedBox(
                   height: 302.0.responsive(),
                   child: PageView(
@@ -1845,8 +1852,13 @@ class _BreakfastTrackingPageState
           end: Alignment.bottomCenter,
           colors: [
             bgThemeColor.withValues(alpha: 0.0),
-            bgThemeColor.withValues(alpha: 0.95),
+            bgThemeColor.withValues(alpha: 0.12),
+            bgThemeColor.withValues(alpha: 0.35),
+            bgThemeColor.withValues(alpha: 0.65),
+            bgThemeColor.withValues(alpha: 0.88),
+            bgThemeColor.withValues(alpha: 0.98),
           ],
+          stops: const [0.0, 0.25, 0.5, 0.72, 0.88, 1.0],
         ),
       ),
       child: child,

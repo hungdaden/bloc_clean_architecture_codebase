@@ -12,6 +12,7 @@ class FadedBackgroundPageLayout extends StatefulWidget {
     required this.child,
     this.floatingActionButton,
     this.useSolidThemeBackground = false,
+    this.titleFontSize,
   });
 
   final String title;
@@ -22,6 +23,7 @@ class FadedBackgroundPageLayout extends StatefulWidget {
   final Widget child;
   final Widget? floatingActionButton;
   final bool useSolidThemeBackground;
+  final double? titleFontSize;
 
   @override
   State<FadedBackgroundPageLayout> createState() =>
@@ -33,12 +35,12 @@ class _FadedBackgroundPageLayoutState extends State<FadedBackgroundPageLayout> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
-    final topColor = theme.primaryColor.withValues(alpha: isDark ? 0.15 : 0.25);
+    final topColor = theme.primaryColor.withValues(alpha: isDark ? 0.15 : 0.4);
     final bottomColor = theme.scaffoldBackgroundColor;
     final headerBgColor = Color.alphaBlend(
-      theme.primaryColor.withValues(alpha: isDark ? 0.25 : 0.2),
+      theme.primaryColor.withValues(alpha: isDark ? 0.25 : 0.4),
       bottomColor,
-    ).withValues(alpha: isDark ? 0.95 : 0.9);
+    ).withValues(alpha: isDark ? 0.95 : 0.97);
     final headerHeight =
         widget.subtitle != null ? 152.0.responsive() : 104.0.responsive();
 
@@ -67,7 +69,7 @@ class _FadedBackgroundPageLayoutState extends State<FadedBackgroundPageLayout> {
             height: MediaQuery.of(context).size.height,
             child: Container(
               color: Color.alphaBlend(
-                  Colors.black.withValues(alpha: 0.45), theme.primaryColor),
+                  Colors.white.withValues(alpha: 0.45), theme.primaryColor),
               child: Stack(
                 children: [
                   Positioned(
@@ -112,6 +114,7 @@ class _FadedBackgroundPageLayoutState extends State<FadedBackgroundPageLayout> {
                         onSettingsPressed: widget.onSettingsPressed,
                         textColor: Colors.white,
                         rightIcon: widget.rightIcon,
+                        titleFontSize: widget.titleFontSize,
                       ),
                     ),
                   )
@@ -125,7 +128,7 @@ class _FadedBackgroundPageLayoutState extends State<FadedBackgroundPageLayout> {
                           headerBgColor,
                           headerBgColor.withValues(alpha: 0.0),
                         ],
-                        stops: const [0.0, 0.65, 1.0],
+                        stops: const [0.0, 0.6, 1.0],
                       ),
                     ),
                     padding: EdgeInsets.only(
@@ -138,6 +141,7 @@ class _FadedBackgroundPageLayoutState extends State<FadedBackgroundPageLayout> {
                         onBackPressed: widget.onBackPressed,
                         onSettingsPressed: widget.onSettingsPressed,
                         rightIcon: widget.rightIcon,
+                        titleFontSize: widget.titleFontSize,
                       ),
                     ),
                   ),
@@ -184,7 +188,7 @@ class _FadingBackground extends StatelessWidget {
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    Colors.transparent,
+                    bottomColor.withValues(alpha: 0.0),
                     bottomColor,
                   ],
                   begin: Alignment.topCenter,
