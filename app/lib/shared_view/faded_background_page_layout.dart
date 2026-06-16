@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import '../app.dart';
 
 class FadedBackgroundPageLayout extends StatefulWidget {
@@ -49,7 +48,7 @@ class _FadedBackgroundPageLayoutState extends State<FadedBackgroundPageLayout> {
           children: [
             // Base background
             _FadingBackground(
-              svgAssetPath: 'assets/images/review_bg.svg',
+              imageAssetPath: 'assets/images/review_bg.webp',
               topColor: topColor,
               bottomColor: bottomColor,
               height: MediaQuery.of(context).size.height * 0.33,
@@ -79,8 +78,8 @@ class _FadedBackgroundPageLayoutState extends State<FadedBackgroundPageLayout> {
                       height: MediaQuery.of(context).size.height * 0.33,
                       child: Opacity(
                         opacity: 0.08,
-                        child: SvgPicture.asset(
-                          'assets/images/review_bg.svg',
+                        child: Image.asset(
+                          'assets/images/review_bg.webp',
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -149,13 +148,13 @@ class _FadedBackgroundPageLayoutState extends State<FadedBackgroundPageLayout> {
 
 class _FadingBackground extends StatelessWidget {
   const _FadingBackground({
-    required this.svgAssetPath,
+    required this.imageAssetPath,
     required this.topColor,
     required this.bottomColor,
     required this.height,
   });
 
-  final String svgAssetPath;
+  final String imageAssetPath;
   final Color topColor;
   final Color bottomColor;
   final double height;
@@ -172,8 +171,8 @@ class _FadingBackground extends StatelessWidget {
           Positioned.fill(
             child: Container(
               color: topColor,
-              child: SvgPicture.asset(
-                svgAssetPath,
+              child: Image.asset(
+                imageAssetPath,
                 fit: BoxFit.cover,
               ),
             ),

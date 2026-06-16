@@ -1,6 +1,5 @@
 import 'package:domain/domain.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import '../app.dart';
 
 class CommentCard extends StatelessWidget {
@@ -52,8 +51,8 @@ class CommentCard extends StatelessWidget {
             Positioned.fill(
               child: Opacity(
                 opacity: 0.9,
-                child: SvgPicture.asset(
-                  'assets/images/review_bg.svg',
+                child: Image.asset(
+                  'assets/images/review_bg.webp',
                   fit: BoxFit.cover,
                 ),
               ),
@@ -202,14 +201,19 @@ class CommentCard extends StatelessWidget {
             Positioned.fill(
               child: Opacity(
                 opacity: 0.9,
-                child: SvgPicture.asset(
-                  'assets/images/review_bg.svg',
-                  fit: BoxFit.cover,
-                  colorFilter: isDark
-                      ? ColorFilter.mode(
-                          Colors.black.withValues(alpha: 0.4), BlendMode.dstATop)
-                      : null,
-                ),
+                child: isDark
+                    ? ColorFiltered(
+                        colorFilter: ColorFilter.mode(
+                            Colors.black.withValues(alpha: 0.4), BlendMode.dstATop),
+                        child: Image.asset(
+                          'assets/images/review_bg.webp',
+                          fit: BoxFit.cover,
+                        ),
+                      )
+                    : Image.asset(
+                        'assets/images/review_bg.webp',
+                        fit: BoxFit.cover,
+                      ),
               ),
             ),
             Padding(
