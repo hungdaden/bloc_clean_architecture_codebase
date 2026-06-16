@@ -102,11 +102,8 @@ class _LeaveCalendarPickerState extends State<LeaveCalendarPicker> {
         DateTime(_focusedMonth.year, _focusedMonth.month + 1, 0);
     final daysInMonth = lastDayOfMonth.day;
 
-    // Weekday offset (Monday as 1, Sunday as 7)
-    // Convert so that Monday = 0, Sunday = 6
     final int weekdayOffset = (firstDayOfMonth.weekday - 1) % 7;
 
-    // List of day cells to render
     final List<DateTime?> dayCells = [];
     for (int i = 0; i < weekdayOffset; i++) {
       dayCells.add(null); // Placeholders for previous month offset
@@ -192,18 +189,17 @@ class _LeaveCalendarPickerState extends State<LeaveCalendarPicker> {
           SizedBox(height: 2.0.responsive()),
 
           // Weekday Headers
-          GridView.count(
-            shrinkWrap: true,
-            crossAxisCount: 7,
-            physics: const NeverScrollableScrollPhysics(),
+          Row(
             children: ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'].map((day) {
-              return Center(
-                child: Text(
-                  day,
-                  style: TextStyle(
-                    fontSize: 12.0.responsive(),
-                    fontWeight: FontWeight.bold,
-                    color: colors.secondaryTextColor,
+              return Expanded(
+                child: Center(
+                  child: Text(
+                    day,
+                    style: TextStyle(
+                      fontSize: 12.0.responsive(),
+                      fontWeight: FontWeight.bold,
+                      color: colors.secondaryTextColor,
+                    ),
                   ),
                 ),
               );
@@ -216,7 +212,7 @@ class _LeaveCalendarPickerState extends State<LeaveCalendarPicker> {
             shrinkWrap: true,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 7,
-              childAspectRatio: 1.48,
+              childAspectRatio: 1.65,
             ),
             physics: const NeverScrollableScrollPhysics(),
             itemCount: dayCells.length,
