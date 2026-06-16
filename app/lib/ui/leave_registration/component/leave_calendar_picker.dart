@@ -189,7 +189,7 @@ class _LeaveCalendarPickerState extends State<LeaveCalendarPicker> {
             ],
           ),
           Divider(color: theme.dividerColor),
-          SizedBox(height: 6.0.responsive()),
+          SizedBox(height: 2.0.responsive()),
 
           // Weekday Headers
           GridView.count(
@@ -209,14 +209,14 @@ class _LeaveCalendarPickerState extends State<LeaveCalendarPicker> {
               );
             }).toList(),
           ),
-          SizedBox(height: 6.0.responsive()),
+          SizedBox(height: 2.0.responsive()),
 
           // day cell grids
           GridView.builder(
             shrinkWrap: true,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 7,
-              childAspectRatio: 1.34,
+              childAspectRatio: 1.48,
             ),
             physics: const NeverScrollableScrollPhysics(),
             itemCount: dayCells.length,
@@ -274,9 +274,9 @@ class _LeaveCalendarPickerState extends State<LeaveCalendarPicker> {
             },
           ),
 
-          SizedBox(height: 6.0.responsive()),
+          SizedBox(height: 2.0.responsive()),
           Divider(color: theme.dividerColor),
-          SizedBox(height: 6.0.responsive()),
+          SizedBox(height: 2.0.responsive()),
 
           Row(
             children: [

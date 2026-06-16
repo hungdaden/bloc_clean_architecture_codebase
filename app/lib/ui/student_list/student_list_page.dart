@@ -51,7 +51,7 @@ class _StudentListPageState extends BasePageState<StudentListPage, StudentListBl
       ),
       child: Column(
         children: [
-          SizedBox(height: headerHeight),
+          SizedBox(height: headerHeight + MediaQuery.of(context).padding.top),
           const StudentSearchBar(),
           Expanded(
             child: BlocBuilder<StudentListBloc, StudentListState>(

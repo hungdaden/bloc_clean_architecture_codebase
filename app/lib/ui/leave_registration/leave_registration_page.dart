@@ -151,7 +151,10 @@ class _LeaveRegistrationPageState
               Positioned.fill(
                 child: Column(
                   children: [
-                    SizedBox(height: headerHeight + 2.0.responsive()),
+                    SizedBox(
+                        height: headerHeight +
+                            MediaQuery.of(context).padding.top +
+                            2.0.responsive()),
                     Expanded(
                       child: PageView(
                         controller: _pageController,
@@ -175,7 +178,7 @@ class _LeaveRegistrationPageState
                             ),
                           ),
                           _buildStepWrapper(
-                            physics: const NeverScrollableScrollPhysics(),
+                            physics: const BouncingScrollPhysics(),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [

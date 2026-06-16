@@ -114,7 +114,9 @@ class _LeaveListPageState extends BasePageState<LeaveListPage, LeaveListBloc> {
                     padding: EdgeInsets.only(
                       left: 20.0.responsive(),
                       right: 20.0.responsive(),
-                      top: headerHeight - 16.0.responsive(),
+                      top: headerHeight +
+                          MediaQuery.of(context).padding.top -
+                          16.0.responsive(),
                       bottom: (bottomPadding > 0 ? bottomPadding : 16.0)
                               .responsive() +
                           80.0.responsive(),

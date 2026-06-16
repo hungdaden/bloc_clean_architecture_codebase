@@ -29,14 +29,16 @@ class CommentListBody extends StatelessWidget {
       );
     }
 
-    final headerHeight = 76.0.responsive();
+    final headerHeight = 104.0.responsive();
 
     return SingleChildScrollView(
       padding: EdgeInsets.only(
         left: Dimens.d16.responsive(),
         right: Dimens.d16.responsive(),
         bottom: Dimens.d8.responsive(),
-        top: headerHeight + Dimens.d8.responsive(),
+        top: headerHeight +
+            MediaQuery.of(context).padding.top +
+            Dimens.d8.responsive(),
       ),
       child: Column(
         children: [

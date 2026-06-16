@@ -35,7 +35,7 @@ class CommentDetailBody extends StatelessWidget {
     final formattedDate =
         '${currentComment.date.day.toString().padLeft(2, '0')}/${currentComment.date.month.toString().padLeft(2, '0')}/${currentComment.date.year} ${currentComment.date.hour.toString().padLeft(2, '0')}:${currentComment.date.minute.toString().padLeft(2, '0')}';
 
-    final headerHeight = 76.0.responsive();
+    final headerHeight = 104.0.responsive();
     final bottomBarHeight = 82.0.responsive();
 
     return Stack(
@@ -45,7 +45,9 @@ class CommentDetailBody extends StatelessWidget {
             padding: EdgeInsets.only(
               left: Dimens.d16.responsive(),
               right: Dimens.d16.responsive(),
-              top: headerHeight + Dimens.d8.responsive(),
+              top: headerHeight +
+                  MediaQuery.of(context).padding.top +
+                  Dimens.d8.responsive(),
               bottom: bottomBarHeight + MediaQuery.of(context).padding.bottom + Dimens.d16.responsive(),
             ),
             child: Column(

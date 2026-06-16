@@ -45,7 +45,6 @@ class _FadedBackgroundPageLayoutState extends State<FadedBackgroundPageLayout> {
       floatingActionButton: widget.floatingActionButton,
       body: Stack(
         children: [
-          // Base background
           _FadingBackground(
             imageAssetPath: 'assets/images/review_bg.webp',
             topColor: topColor,
@@ -96,7 +95,7 @@ class _FadedBackgroundPageLayoutState extends State<FadedBackgroundPageLayout> {
             top: 0,
             left: 0,
             right: 0,
-            height: headerHeight,
+            height: headerHeight + MediaQuery.of(context).padding.top,
             child: widget.useSolidThemeBackground
                 ? Container(
                     color: Colors.transparent,
