@@ -13,5 +13,6 @@ class AppRouteInfo with _$AppRouteInfo {
   const factory AppRouteInfo.studentList() = _StudentList;
   const factory AppRouteInfo.leaveList() = _LeaveList;
   const factory AppRouteInfo.leaveRegistration() = _LeaveRegistration;
+  const factory AppRouteInfo.breakfastTracking() = _BreakfastTracking;
 }
 

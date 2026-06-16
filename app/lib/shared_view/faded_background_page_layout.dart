@@ -8,6 +8,7 @@ class FadedBackgroundPageLayout extends StatefulWidget {
     this.subtitle,
     required this.onBackPressed,
     this.onSettingsPressed,
+    this.rightIcon,
     required this.child,
     this.floatingActionButton,
     this.useSolidThemeBackground = false,
@@ -17,6 +18,7 @@ class FadedBackgroundPageLayout extends StatefulWidget {
   final String? subtitle;
   final VoidCallback onBackPressed;
   final VoidCallback? onSettingsPressed;
+  final IconData? rightIcon;
   final Widget child;
   final Widget? floatingActionButton;
   final bool useSolidThemeBackground;
@@ -109,6 +111,7 @@ class _FadedBackgroundPageLayoutState extends State<FadedBackgroundPageLayout> {
                         onBackPressed: widget.onBackPressed,
                         onSettingsPressed: widget.onSettingsPressed,
                         textColor: Colors.white,
+                        rightIcon: widget.rightIcon,
                       ),
                     ),
                   )
@@ -134,6 +137,7 @@ class _FadedBackgroundPageLayoutState extends State<FadedBackgroundPageLayout> {
                         subtitle: widget.subtitle,
                         onBackPressed: widget.onBackPressed,
                         onSettingsPressed: widget.onSettingsPressed,
+                        rightIcon: widget.rightIcon,
                       ),
                     ),
                   ),

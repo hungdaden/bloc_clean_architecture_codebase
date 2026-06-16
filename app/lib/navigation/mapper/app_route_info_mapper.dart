@@ -16,6 +16,7 @@ class AppRouteInfoMapper extends BaseRouteInfoMapper {
       studentList: () => const StudentListRoute(),
       leaveList: () => const LeaveListRoute(),
       leaveRegistration: () => const LeaveRegistrationRoute(),
+      breakfastTracking: () => const BreakfastTrackingRoute(),
     );
   }
 }

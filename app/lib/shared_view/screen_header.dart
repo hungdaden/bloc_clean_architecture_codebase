@@ -10,6 +10,7 @@ class ScreenHeader extends StatelessWidget {
     required this.onBackPressed,
     this.onSettingsPressed,
     this.textColor,
+    this.rightIcon,
   });
 
   final String title;
@@ -17,6 +18,7 @@ class ScreenHeader extends StatelessWidget {
   final VoidCallback onBackPressed;
   final VoidCallback? onSettingsPressed;
   final Color? textColor;
+  final IconData? rightIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -107,7 +109,7 @@ class ScreenHeader extends StatelessWidget {
                           ],
                         ),
                         child: Icon(
-                          Icons.settings,
+                          rightIcon ?? Icons.settings,
                           color: isDark ? Colors.white : Colors.black,
                           size: 16,
                         ),

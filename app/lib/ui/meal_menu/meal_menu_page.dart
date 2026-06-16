@@ -235,6 +235,22 @@ class _MealMenuPageState extends BasePageState<MealMenuPage, MealMenuBloc>
           SizedBox(width: Dimens.d8.responsive()),
           InkWell(
             onTap: () async {
+              await navigator.push(const AppRouteInfo.breakfastTracking());
+            },
+            borderRadius: BorderRadius.circular(12),
+            child: Container(
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: theme.cardColor,
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: theme.dividerColor),
+              ),
+              child: Icon(Icons.free_breakfast, color: colors.primaryTextColor, size: 24),
+            ),
+          ),
+          SizedBox(width: Dimens.d8.responsive()),
+          InkWell(
+            onTap: () async {
               await navigator.push(const AppRouteInfo.adminMealManagement());
               bloc.add(const MealMenuPageInitiated());
             },
